@@ -74,3 +74,19 @@ jobs:
       - name: Deploy the thing
         run: |
           echo Deploying 🚀
+name: CI App
+on:
+  [workflow_dispatch, push]
+concurrency: ci-app-${{ github.ref }}
+jobs:
+  gitleaks:
+    name: gitleaks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: run gitleaks docker
+        run: |
+          docker run -v ${PWD}:/path zricethezav/gitleaks:latest detect --source="/path/" -v -l debug --no-git
