@@ -4,6 +4,7 @@ on:
 concurrency: ci-${{ github.ref }}
 jobs:
 
+
   trivy:
     name: Run Trivy (Iac and fs mode)
     runs-on: ubuntu-latest
